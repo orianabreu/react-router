@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import NavBar from "../../components/NavBar/NavBar";
 import Post from "../../components/Post/Post";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const darkTheme = useTheme();
   const baseURL = "https://jsonplaceholder.typicode.com";
 
   useEffect(() => {
@@ -25,10 +26,14 @@ export default function Home() {
     };
   }, []);
 
+  const titleStyles = {
+    color: darkTheme ? "white" : "black"
+  }
+
   return (
     <>
       {error && <p>Error: {error.message}</p>}
-      <h1>Post del blog:</h1>
+      <h1 style={titleStyles}>Post del blog:</h1>
       <div className='posts-wrapper'>
         {posts.map((post) => {
           return (
